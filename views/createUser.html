@@ -1,0 +1,109 @@
+{% block links %}
+    <link rel="stylesheet" href="../css/signup.css">
+{% endblock %}
+
+{% block dashbar %}
+    {% include "dashbar.html" %}
+{% endblock %}
+
+{% block content %}
+    <div id="main">
+        <h2>Create User</h2>
+        {% if body == "" %}
+        <form name="create" id="form" action="/dashboard/createUser" method="post">
+            <input type="hidden" name="id" value={{userInfo._id|json|safe}}>
+            First Name: <br><input type="text" name="firstName" class="box form" value={{userInfo.firstName}}>
+            <div id="firstErr" class="error">{{ msg }}</div>
+            <br>
+            Last Name: <br><input type="text" name="lastName" class="box form" value={{userInfo.lastName}}>
+            <div id="lastErr" class="error">{{ msg }}</div>
+            <br>
+            Email: <br><input type="text" name="signupEmail" class="box form" value={{userInfo.email}}>
+            <div id="emailErr" class="error">{{ msg }}</div>
+            <br><br>
+            Role:
+            <br>
+            {% if userInfo.role == 'Admin' %}
+            <input type="radio" name="role" value="Admin" class="form" id="admin" checked> Admin
+            <input type="radio" name="role" value="User" class="gender form" id="user"> User
+            {% elseif userInfo.role == 'User' %}
+            <input type="radio" name="role" value="Admin" class="form" id="admin"> Admin
+            <input type="radio" name="role" value="User" class="gender form" id="user" checked> User
+            {% else %}
+            <input type="radio" name="role" value="Admin" class="form" id="admin"> Admin
+            <input type="radio" name="role" value="User" class="gender form" id="user"> User
+            {% endif %}
+            <div id="radioErr" class="error">{{ msg }}</div>
+            <br><br>
+            Password: <br><input type="password" name="signupPassword" class="box form" placeholder="5-20 characters"
+                                 maxlength="20" value={{userInfo.signupPassword}}>
+            <div id="passwordErr" class="error">{{ msg }}</div>
+            <br>
+            Confirm Password: <br><input type="password" name="passwordConfirm" class="box" value={{userInfo.passwordConfirm}}>
+            <div id="password-confirm" class="error">{{ msg }}</div>
+            <br><br>
+            <button type="submit" id="signbtn">Create</button><br>
+        </form>
+        {% else %}
+        <form name="create" id="form" action="/dashboard/createUser" method="post">
+            <input type="hidden" name="id" value={{body.id|json|safe}}>
+            First Name: <br><input type="text" name="firstName" class="box form" value={{body.firstName}}>
+            <div id="firstErr" class="error">{{ msg }}</div>
+            <br>
+            Last Name: <br><input type="text" name="lastName" class="box form" value={{body.lastName}}>
+            <div id="lastErr" class="error">{{ msg }}</div>
+            <br>
+            Email: <br><input type="text" name="signupEmail" class="box form" value={{body.signupEmail}}>
+            <div id="emailErr" class="error">{{ msg }}</div>
+            <br><br>
+            Role:
+            <br>
+            {% if body.role == 'Admin' %}
+            <input type="radio" name="role" value="Admin" class="form" id="admin" checked> Admin
+            <input type="radio" name="role" value="User" class="gender form" id="user"> User
+            {% elseif body.role == 'User' %}
+            <input type="radio" name="role" value="Admin" class="form" id="admin"> Admin
+            <input type="radio" name="role" value="User" class="gender form" id="user" checked> User
+            {% else %}
+            <input type="radio" name="role" value="Admin" class="form" id="admin"> Admin
+            <input type="radio" name="role" value="User" class="gender form" id="user"> User
+            {% endif %}
+            <div id="radioErr" class="error">{{ msg }}</div>
+            <br><br>
+            Password: <br><input type="password" name="signupPassword" class="box form" placeholder="5-20 characters"
+                                 maxlength="20" value={{body.signupPassword}}>
+            <div id="passwordErr" class="error">{{ msg }}</div>
+            <br>
+            Confirm Password: <br><input type="password" name="passwordConfirm" class="box" value={{body.passwordConfirm}}>
+            <div id="password-confirm" class="error">{{ msg }}</div>
+            <br><br>
+            <button type="submit" id="signbtn">Create</button><br>
+        </form>
+        {% endif %}
+    </div>
+
+    <script>
+        var errors = '{{ errors |json | safe }}';
+        var body = '{{ body |json | safe }}';
+        var userInfo = '{{ userInfo |json | safe }}';
+        //    console.log(JSON.parse(errors));
+        //    console.log("errors", errors);
+            console.log("body", body);
+        errors = JSON.parse(errors);
+        for (var i = 0; i < errors.length; i++) { // ----- loop through array of errors
+            console.log('looping through errors');
+            var elem = document.getElementById(errors[i].field);
+            if (!elem) {
+                console.log('err');
+
+            }
+            elem.innerHTML = errors[i].msg;
+        }
+    </script>
+
+    <footer>
+            <span>
+                &copy 2016 | "<em>Store Name</em>"
+            </span>
+    </footer>
+{% endblock %}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Store</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <script type="text/javascript" src="../js/functions.js"></script>
+</head>
+<body onload="displayName()">
+<nav>
+    <ul>
+        <div id="navbar">
+            <li class="inline list nav-item"><a href="./index.html" id="home">Home</a></li>
+            <li class="inline list nav-item"><a href="#features" id="features">Features</a></li>
+            <li class="inline list nav-item"><a href="#about" id="about">About</a></li>
+            <li class="inline list nav-item"><a href="#contacts" id="contacts">Contacts</a></li>
+            <div class="dropdown inline nav-item" id="drop">
+                <button class="dropbtn" id="dropbtn">&dtrif;</button>
+                <div class="dropdown-content">
+                    <a href="./login.html" id="login">Log In</a>
+                    <a href="./signup.html" id="signup" onclick="logOut('currentUser')">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </ul>
+</nav>
+<div id="sidebar">
+    <span><strong>Product</strong></span>
+    <ul class="sidebar">
+        <li class="list"><a href="#men" id="men">Men</a></li>
+        <li class="list"><a href="#women" id="women">Women</a></li>
+        <li class="list"><a href="#kids" id="kids">Kids</a></li>
+        <li class="list"><a href="#shoes" id="shoes">Shoes & Accessories</a></li>
+        <li class="list"><a href="#random" id="random">Miscellaneous</a></li>
+    </ul>
+    <span><strong>Brand</strong></span>
+    <ul class="sidebar">
+        <li class="list"><a href="#nike" id="nike">Nike</a></li>
+        <li class="list"><a href="#adidas" id="adidas">Adidas</a></li>
+        <li class="list"><a href="#polo" id="polo">Polo Ralph Lauren</a></li>
+        <li class="list"><a href="#levi" id="levi">Levi's</a></li>
+        <li class="list"><a href="#champion" id="champion">Champion</a></li>
+    </ul>
+    <span><strong>Prices</strong></span>
+    <ul class="sidebar">
+        <li class="list"><a href="#low" id="low">Under $25</a></li>
+        <li class="list"><a href="#medlow" id="medlow">$25 - $50</a></li>
+        <li class="list"><a href="#medium" id="medium">$50 - $100</a></li>
+        <li class="list"><a href="#medhigh" id="medhigh">$100 - $200</a></li>
+        <li class="list"><a href="#high" id="high">Above $200</a></li>
+    </ul>
+</div>
+<div id="main">
+    <h1><em>"Main Content"</em></h1>
+</div>
+<footer>
+    <span>
+        &copy 2016 | "<em>Store Name</em>"
+    </span>
+</footer>
+</body>
+</html>

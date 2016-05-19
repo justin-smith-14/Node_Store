@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Store</title>
+    <link rel="stylesheet" href="../css/info.css">
+    <script type="text/javascript" src="../js/functions.js"></script>
+</head>
+<body onload="accountInfo()">
+<nav>
+    <ul>
+        <div id="navbar">
+            <li class="inline list nav-item"><a href="./index.html" class="color" id="home">Home</a></li>
+            <li class="inline list nav-item"><a href="#features" class="color" id="features">Features</a></li>
+            <li class="inline list nav-item"><a href="#about" class="color" id="about">About</a></li>
+            <li class="inline list nav-item"><a href="#contacts" class="color" id="contacts">Contacts</a></li>
+            <div class="dropdown inline nav-item" id="drop">
+                <button class="dropbtn" id="dropbtn">&dtrif;</button>
+                <div class="dropdown-content">
+                    <a href="./login.html" id="login">Log In</a>
+                    <a href="./signup.html" id="signup" onclick="logOut('currentUser')">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </ul>
+</nav>
+<div id="main">
+    <h2 id="profile"></h2>
+    <ul>
+        <li>First Name:</li>
+        <li><strong id="first"></strong></li>
+        <br>
+        <li>Last Name:</li>
+        <li><strong id="last"></strong></li>
+        <br>
+        <li>Email Address:</li>
+        <li><strong id="email"></strong></li>
+        <br>
+        <li>Gender:</li>
+        <li><strong id="gender"></strong></li>
+        <br>
+        <li>Age:</li>
+        <li><strong id="age"></strong></li>
+        <br>
+        <li>Cellphone Number:</li>
+        <li><strong id="cell"></strong></li>
+        <br>
+    </ul>
+    <button id="btn" onclick="deleteProfile()">Delete Profile</button>
+</div>
+<footer>
+    <span>
+        &copy 2016 | "<em>Store Name</em>"
+    </span>
+</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+
+{% block links %}
+    <link rel="stylesheet" href="../css/signup.css">
+{% endblock %}
+
+{% block navbar %}
+    {% include "navbar.html" %}
+{% endblock %}
+
+{% block content %}
+<div id="main">
+    <h2>Sign Up</h2>
+    <h4 id="signin">Already have an account? <button id="btn"><a href="login" id="log">Log in</a></button></h4>
+    <form name="myForm" id="form" action="/signup" method="post">
+        First Name: <br><input type="text" name="firstName" class="box form" value={{body.firstName}}>
+        <div id="firstErr" class="error">{{ msg }}</div>
+        <br>
+        Last Name: <br><input type="text" name="lastName" class="box form" value={{body.lastName}}>
+        <div id="lastErr"  class="error">{{ msg }}</div>
+        <br><br>
+        Email: <br><input type="text" name="signupEmail" class="box form" value={{body.signupEmail}}>
+        <div id="emailErr" class="error">{{ msg }}</div>
+        <br><br>
+        Gender:
+        <br>
+        {% if body.gender == 'Male' %}
+        <input type="radio" name="gender" value="Male" class="form" id="male" checked> Male
+        <input type="radio" name="gender" value="Female" class="gender form" id="female"> Female
+        <input type="radio" name="gender" value="Other" class="gender form" id="other"> Other
+        {% elseif body.gender == 'Female' %}
+        <input type="radio" name="gender" value="Male" class="form" id="male"> Male
+        <input type="radio" name="gender" value="Female" class="gender form" id="female" checked> Female
+        <input type="radio" name="gender" value="Other" class="gender form" id="other"> Other
+        {% elseif body.gender == 'Other' %}
+        <input type="radio" name="gender" value="Male" class="form" id="male"> Male
+        <input type="radio" name="gender" value="Female" class="gender form" id="female"> Female
+        <input type="radio" name="gender" value="Other" class="gender form" id="other" checked> Other
+        {% else %}
+        <input type="radio" name="gender" value="Male" class="form" id="male"> Male
+        <input type="radio" name="gender" value="Female" class="gender form" id="female"> Female
+        <input type="radio" name="gender" value="Other" class="gender form" id="other"> Other
+        {% endif %}
+        <div id="radioErr" class="error">{{ msg }}</div>
+        <br><br>
+        Age <br><input type="number" name="age" class="box form" value={{body.age}}>
+        <div id="ageErr" class="error">{{ msg }}</div>
+        <br><br>
+        Cell Number: <br><input type="text" name="number" class="box form" value={{body.number}}>
+        <div id="cellErr" class="error">{{ msg }}</div>
+        <br><br>
+        Password: <br><input type="password" name="signupPassword" class="box form" placeholder="5-20 characters"
+                             maxlength="20" value={{body.signupPassword}}>
+        <div id="passwordErr" class="error">{{ msg }}</div>
+        <br>
+        Confirm Password: <br><input type="password" name="passwordConfirm" class="box" value={{body.passwordConfirm}}>
+        <div id="password-confirm" class="error">{{ msg }}</div>
+        <br><br>
+        <button type="submit" id="signbtn">Sign Up</button><br>
+    </form>
+</div>
+
+<script>
+    var errors = '{{ errors |json | safe }}';
+    var body = '{{ body |json | safe }}';
+//    console.log(JSON.parse(errors));
+//    console.log("errors", errors);
+//    console.log("body", body);
+
+    errors = JSON.parse(errors);
+
+    for (var i = 0; i < errors.length; i++) { // ----- loop through array of errors
+        console.log('looping through errors');
+        var elem = document.getElementById(errors[i].field);
+        if (!elem) {
+            console.log('err');
+
+        }
+        elem.innerHTML = errors[i].msg;
+    }
+</script>
+{% endblock %}

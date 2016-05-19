@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block links %}
+    <link rel="stylesheet" href="../css/login.css">
+{% endblock %}
+
+    {% block navbar %}
+        {% include "navbar.html" %}
+    {% endblock %}
+
+{% block content %}
+<div id="main">
+    <h2>Log In</h2>
+    <h4>Don't have an account?<button id="btn2"><a href="signup" id="create">Create One</a></button></h4>
+    <form name="login" action="/login" method="post">
+        Email:<br><input type="text" name="loginEmail" class="box" value="{{body.loginEmail}}">
+        <br>
+        Password:<br><input type="password" name="loginPassword" class="box" value="{{body.loginPassword}}">
+        <br>
+        Remember Me <input type="checkbox" name="save">
+        <br>
+        <div id="error">{{ msg }}</div>
+        <br>
+        <button type="submit" id="btn">Log In</button>
+    </form>
+</div>
+
+    <script>
+        var errors = '{{ errors |json | safe }}';
+        var body = '{{ body |json | safe }}';
+//        console.log(JSON.parse(errors));
+//        console.log("errors", errors);
+//        console.log("body", body);
+        errors = JSON.parse(errors);
+        for (var i = 0; i < errors.length; i++) { // ----- loop through array of errors
+            console.log('looping through errors');
+            var elem = document.getElementById(errors[i].field);
+            if (!elem) {
+                console.log('err');
+
+            }
+            elem.innerHTML = errors[i].msg;
+        }
+    </script>
+{% endblock %}

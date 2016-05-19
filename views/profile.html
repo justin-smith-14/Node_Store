@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block links %}
+    <link rel="stylesheet" href="../css/info.css">
+{% endblock %}
+
+    {% block navbar %}
+        {% include "navbar.html" %}
+    {% endblock %}
+
+{% block content %}
+<div id="main">
+    <h2 id="profile">{{ user.firstName }}'s Profile</h2>
+    <ul>
+        <li>First Name:</li>
+        <li><strong id="first">{{ user.firstName }}</strong></li>
+        <br>
+        <li>Last Name:</li>
+        <li><strong id="last">{{ user.lastName }}</strong></li>
+        <br>
+        <li>Email Address:</li>
+        <li><strong id="email">{{ user.email }}</strong></li>
+        <br>
+        <li>Gender:</li>
+        <li><strong id="gender">{{ user.gender }}</strong></li>
+        <br>
+        <li>Age:</li>
+        <li><strong id="age">{{ user.age }}</strong></li>
+        <br>
+        <li>Cellphone Number:</li>
+        <li><strong id="cell">{{ user.cell }}</strong></li>
+        <br>
+    </ul>
+    <button id="btn"><a href="./deleteUser" id="delete">Delete Profile</a></button>
+</div>
+    <script>
+        var user = '{{ user |json | safe }}';
+        //var body = '{{ body |json | safe }}';
+    </script>
+{% endblock %}

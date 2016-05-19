@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Store</title>
+    <link rel="stylesheet" href="../css/signup.css">
+    <script type="text/javascript" src="../js/functions.js"></script>
+</head>
+<body>
+<nav>
+    <ul>
+        <div id="navbar">
+            <li class="inline list nav-item"><a href="./index.html" class="color" id="home">Home</a></li>
+            <li class="inline list nav-item"><a href="#features" class="color" id="features">Features</a></li>
+            <li class="inline list nav-item"><a href="#about" class="color" id="about">About</a></li>
+            <li class="inline list nav-item"><a href="#contacts" class="color" id="contacts">Contacts</a></li>
+            <div class="dropdown inline nav-item" id="drop">
+                <button class="dropbtn">&dtrif;</button>
+                <div class="dropdown-content">
+                    <a href="./login.html" id="login">Log In</a>
+                    <a href="./signup.html" id="signup">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </ul>
+</nav>
+<div id="main">
+    <h2>Sign Up</h2>
+    <h4 id="signin">Already have an account? <button id="btn"><a href="./login.html" id="log">Log in</a></button></h4>
+    <form name="myForm" id="form" method="post" onsubmit="return signUpValidate()">
+        First Name: <br><input type="text" name="first" class="box form">
+        <div id="first" class="error"></div>
+        <br>
+        Last Name: <br><input type="text" name="last" class="box form">
+        <div id="last" class="error"></div>
+        <br><br>
+        Email: <br><input type="text" name="signup-email" class="box form">
+        <div id="email" class="error"></div>
+        <br><br>
+        Gender:
+        <br>
+        <input type="radio" name="gender" value="Male" class="form" id="male"> Male
+        <input type="radio" name="gender" value="Female" class="gender form" id="female"> Female
+        <input type="radio" name="gender" value="Other" class="gender form" id="other"> Other
+        <div id="gender" class="error"></div>
+        <br><br>
+        Age <br><input type="number" name="age" class="box form">
+        <div id="age" class="error"></div>
+        <br><br>
+        Cell Number: <br><input type="text" name="number" class="box form">
+        <div id="cell" class="error"></div>
+        <br><br>
+        Password: <br><input type="password" name="signup-password" class="box form" placeholder="5-20 characters"
+        maxlength="20">
+        <div id="password" class="error"></div>
+        <br>
+        Confirm Password: <br><input type="password" name="password-confirm" class="box">
+        <div id="password-confirm" class="error"></div>
+        <br><br>
+        <input type="submit" name="submit" value="Sign Up" id="signbtn"><br>
+    </form>
+</div>
+<footer>
+    <span>
+        &copy 2016 | "<em>Store Name</em>"
+    </span>
+</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+</body>
+</html>

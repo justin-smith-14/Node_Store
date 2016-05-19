@@ -1,0 +1,34 @@
+{% block navlink %}
+<link rel="stylesheet" href="../css/navbar.css">
+{% endblock %}
+
+{% block dashbar %}
+
+<nav>
+    <ul>
+        <div id="navbar">
+            <li class="inline list nav-item color"><a href="../index" id="home">Home</a></li>
+            <li class="inline list nav-item color"><a href="#products" id="products">Products</a></li>
+            <li class="inline list nav-item color"><a href="#categories" id="categories">Categories</a></li>
+            <li class="inline list nav-item color"><a href="/dashboard/users?page=1" id="users">Users</a></li>
+            <li class="inline list nav-item color"><a href="#reviews" id="reviews">Reviews</a></li>
+            <div class="dropdown inline nav-item" id="drop">
+                <button class="dropbtn" id="dropbtn">{{ greeting + user.firstName}} &dtrif;</button>
+                <div class="dropdown-content">
+
+                    {% if !user %} <a href="./login" id="login">Log In</a>
+                    <a href="./signup" id="signup">Sign Up</a>{% endif %}
+                    {% if user %} <a href="../profile" id="login">Profile</a>
+                    <a href="../logout" id="signup">Log Out</a>{% endif %}
+                </div>
+            </div>
+        </div>
+    </ul>
+</nav>
+
+<script>
+    var user = '{{ user |json | safe }}';
+    //var body = '{{ body |json | safe }}';
+
+</script>
+{% endblock %}

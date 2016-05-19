@@ -1,0 +1,12 @@
+{% macro  paginationLinks(url, page, pages) %}
+
+{% block pagination%}
+<div class="center">
+    <ul class="pagination">
+        {% for index in pages %}
+        <li><a {% if page == index %} class="active" {% endif %} href="{{url}}?page={{index}}"
+               id="page">{{index}}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
