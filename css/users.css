@@ -70,6 +70,16 @@ table {
     font-size: 15px;
 }
 
+#btnC {
+    margin: 0 40% 0 41.5%;
+    background: linear-gradient(#ffff00, #b3b300);
+    border: black solid 1px;
+    border-radius: 5px;
+    height: 30px;
+    width: 130px;
+    font-size: 15px;
+}
+
 .btn:hover {
     cursor: pointer;
 }

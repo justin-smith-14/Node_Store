@@ -111,7 +111,7 @@ exports.editUserPOST = function (req, res) {
 };
 
 
-exports.fillTable = function (req, res) {
+exports.fillUserTable = function (req, res) {
     var perPage = 3;
 
     CurrentUser.findOne({_id: req.cookies.userCookie}, function (err, cUser) {

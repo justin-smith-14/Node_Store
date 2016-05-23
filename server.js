@@ -8,6 +8,8 @@ var swig = require('swig');
 var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 
+require('./models/categories');
+
 //app.use(express.static('public'));
 app.use('/views', express.static('views'));
 app.use('/css', express.static('css'));

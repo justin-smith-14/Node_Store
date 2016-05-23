@@ -1,0 +1,65 @@
+{% block links %}
+<link rel="stylesheet" href="../css/users.css">
+{% endblock %}
+
+{% block dashbar %}
+{% include "dashbar.html" %}
+{% endblock %}
+
+{% block content %}
+<div id="main">
+    <h2>Categories</h2>
+    <button id="btnC"><a href="./createCategory" class="btnLink">Create Category</a></button>
+    <div id="error" class="error">{{ msg }}</div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Slug</th>
+            <th>Action</th>
+        </tr>
+        {% for category in categories %}
+        <tr>
+            <td>{{ category.name }}</td>
+            <td>{{ category.slug }}</td>
+            <td id="action">
+                <button class="btn" id="move">
+                    <a href="./createCategory?id={{category._id | safe}}" class="btnLink">Edit</a>
+                </button>
+                <button class="btn">
+                    <a href="./categoryDelete?id={{category._id | safe}}" class="btnLink">Delete</a>
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% block pagination %}
+    {% include "pagination.html" %}
+    {% endblock %}
+    {{ paginationLinks("/dashboard/categories", page, pages) }}
+</div>
+
+<footer>
+            <span>
+                &copy 2016 | "<em>Store Name</em>"
+            </span>
+</footer>
+
+<script>
+    var category = '{{ category |json | safe }}';
+    var errors = '{{ errors |json | safe }}';
+
+    //pages = JSON.parse(pages);
+    errors = JSON.parse(errors);
+
+    for (var i = 0; i < errors.length; i++) { // ----- loop through array of errors
+        console.log('looping through errors');
+        var elem = document.getElementById(errors[i].field);
+        if (!elem) {
+            console.log('err');
+
+        }
+        elem.innerHTML = errors[i].msg;
+    }
+
+</script>
+{% endblock %}

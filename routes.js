@@ -4,6 +4,7 @@
 var users = require('./controllers/users');
 var greeting = require('./controllers/greeting');
 var onlineUsers = require('./controllers/onlineUsers');
+var categories = require('./controllers/categories');
 
 module.exports = function (app) {
 
@@ -31,13 +32,20 @@ module.exports = function (app) {
 
     //USERS
     //app.get('/dashboard/users', greeting.usersWelcome);
-    app.get('/dashboard/users', onlineUsers.fillTable);
-
+    app.get('/dashboard/users', onlineUsers.fillUserTable);
 
     //CREATE USER
     app.route('/dashboard/createUser')
         .get(onlineUsers.editUserGET)
         .post(onlineUsers.editUserPOST);
+
+    //CATEGORIES
+    app.get('/dashboard/categories', categories.fillCategoryTable);
+
+    //CREATE CATEGORY
+    app.route('/dashboard/createCategory')
+        .get(categories.editCategoryGET)
+        .post(categories.editCategoryPOST);
 
     //PROFILE
     app.get('/profile', greeting.profileInfo);
@@ -45,6 +53,7 @@ module.exports = function (app) {
     //RANDOM
     app.get('/logout', users.logoutUser);
     app.get('/deleteUser', users.deleteUser);
-    app.get('/dashboard/delete', onlineUsers.delete);
+    app.get('/dashboard/userDelete', onlineUsers.delete);
+    app.get('/dashboard/categoryDelete', categories.delete);
 
 };

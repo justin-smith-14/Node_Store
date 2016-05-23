@@ -57,6 +57,10 @@ a:visited {
     color: #b3b300;
 }
 
+#categories:hover {
+    color: #b3b300;
+}
+
 #products:hover {
     color: #b3b300;
 }

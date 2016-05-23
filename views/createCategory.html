@@ -1,0 +1,66 @@
+{% block links %}
+<link rel="stylesheet" href="../css/signup.css">
+{% endblock %}
+
+{% block dashbar %}
+{% include "dashbar.html" %}
+{% endblock %}
+
+{% block content %}
+<div id="main">
+    <h2>Create Category</h2>
+    {% if body == "" %}
+    <form name="create" id="form" action="/dashboard/createCategory" method="post">
+        <input type="hidden" name="id" value={{category._id|json|safe}}>
+        Name: <br><input type="text" name="name" class="box form" value={{category.name}}>
+        <div id="firstErr" class="error">{{ msg }}</div>
+        <div id="error" class="error">{{ msg }}</div>
+        <br>
+        Slug: <br><input type="text" name="slug" class="box form" value={{category.slug}}>
+        <div id="lastErr" class="error">{{ msg }}</div>
+        <br>
+        <br>
+        <button type="submit" id="signbtn">Create</button><br>
+    </form>
+    {% else %}
+    <form name="create" id="form" action="/dashboard/createCategory" method="post">
+        <input type="hidden" name="id" value={{body.id|json|safe}}>
+        Name: <br><input type="text" name="name" class="box form" value={{body.name}}>
+        <div id="firstErr" class="error">{{ msg }}</div>
+        <div id="error" class="error">{{ msg }}</div>
+        <br>
+        Slug: <br><input type="text" name="slug" class="box form" value={{body.slug}}>
+        <div id="lastErr" class="error">{{ msg }}</div>
+        <br>
+        <br>
+        <button type="submit" id="signbtn">Create</button><br>
+    </form>
+    {% endif %}
+</div>
+
+<script>
+    var errors = '{{ errors |json | safe }}';
+    var body = '{{ body |json | safe }}';
+    var category = '{{ category |json | safe }}';
+    //    console.log(JSON.parse(errors));
+    console.log("errors", errors);
+    console.log("body", body);
+    console.log("category", category);
+    errors = JSON.parse(errors);
+    for (var i = 0; i < errors.length; i++) { // ----- loop through array of errors
+        console.log('looping through errors');
+        var elem = document.getElementById(errors[i].field);
+        if (!elem) {
+            console.log('err');
+
+        }
+        elem.innerHTML = errors[i].msg;
+    }
+</script>
+
+<footer>
+            <span>
+                &copy 2016 | "<em>Store Name</em>"
+            </span>
+</footer>
+{% endblock %}
