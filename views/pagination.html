@@ -4,8 +4,7 @@
 <div class="center">
     <ul class="pagination">
         {% for index in pages %}
-        <li><a {% if page == index %} class="active" {% endif %} href="{{url}}?page={{index}}"
-               id="page">{{index}}</a></li>
+        <li><a id="page" {% if page == index %} class="active" {% endif %} href="{{url}}?page={{index + 1}}">{{index + 1}}</a></li>
         {% endfor %}
     </ul>
 </div>
