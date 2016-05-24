@@ -3,16 +3,16 @@
  */
 var mongoose = require('mongoose');
 
-var userSchema = new mongoose.Schema({
-    firstName: String,
-    lastName:  String,
-    email:     String,
-    role:      String,
-    gender:    String,
-    age:       Number,
-    cell:      Number,
-    password:  String,
+var KNUserSchema = new mongoose.Schema({
+    firstName: { type: String },
+    lastName:  { type: String },
+    email:     { type: String },
+    role:      { type: String },
+    gender:    { type: String },
+    age:       { type: Number },
+    cell:      { type: Number },
+    password:  { type: String },
     date:      { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Users', userSchema);
+module.exports = mongoose.model('KNUsers', KNUserSchema);

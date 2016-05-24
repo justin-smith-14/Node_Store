@@ -31,21 +31,20 @@ module.exports = function (app) {
     app.get('/dashboard', greeting.dashboardWelcome);
 
     //USERS
-    //app.get('/dashboard/users', greeting.usersWelcome);
     app.get('/dashboard/users', onlineUsers.fillUserTable);
 
     //CREATE USER
     app.route('/dashboard/createUser')
-        .get(onlineUsers.editUserGET)
-        .post(onlineUsers.editUserPOST);
+        .get(onlineUsers.getUserInfo)
+        .post(onlineUsers.createOrUpdateUser);
 
     //CATEGORIES
     app.get('/dashboard/categories', categories.fillCategoryTable);
 
     //CREATE CATEGORY
     app.route('/dashboard/createCategory')
-        .get(categories.editCategoryGET)
-        .post(categories.editCategoryPOST);
+        .get(categories.getCategoryInfo)
+        .post(categories.createOrUpdateCategory);
 
     //PROFILE
     app.get('/profile', greeting.profileInfo);

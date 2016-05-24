@@ -3,8 +3,8 @@
  */
 var mongoose = require('mongoose');
 
-var currentUserSchema = new mongoose.Schema({
-    userId: mongoose.Schema.Types.ObjectId
+var KNCurrentUserSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId }
 });
 
-module.exports = mongoose.model('CurrentUser', currentUserSchema);
+module.exports = mongoose.model('KNCurrentUser', KNCurrentUserSchema);

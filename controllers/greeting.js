@@ -2,8 +2,8 @@
  * Created by Justin on 5/5/16.
  */
 var mongoose = require('mongoose');
-var Users = mongoose.model('Users');
-var CurrentUser = mongoose.model('CurrentUser');
+var Users = mongoose.model('KNUsers');
+var CurrentUser = mongoose.model('KNCurrentUser');
 
 exports.indexWelcome = function(req, res){
     CurrentUser.findOne({ _id: req.cookies.userCookie }, function(err, cUser) {

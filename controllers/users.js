@@ -5,8 +5,8 @@ var models = require('../models/users');
 var currentModel = require('../models/currentUser');
 var functions = require('../js/functions');
 var mongoose = require('mongoose');
-var Users = mongoose.model('Users');
-var CurrentUser = mongoose.model('CurrentUser');
+var Users = mongoose.model('KNUsers');
+var CurrentUser = mongoose.model('KNCurrentUser');
 
 
 exports.signupUser = function (req, res) {

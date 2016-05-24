@@ -3,11 +3,11 @@
  */
 var functions = require('../js/functions');
 var mongoose = require('mongoose');
-var Categories = mongoose.model('Categories');
-var Users = mongoose.model('Users');
-var CurrentUser = mongoose.model('CurrentUser');
+var Categories = mongoose.model('KNCategories');
+var Users = mongoose.model('KNUsers');
+var CurrentUser = mongoose.model('KNCurrentUser');
 
-exports.editCategoryPOST = function (req, res) {
+exports.createOrUpdateCategory = function (req, res) {
     var errors = [];
     var id = req.body.id;
 
@@ -46,7 +46,7 @@ exports.editCategoryPOST = function (req, res) {
                 }
                 Categories.findOne(q, function (err, category) {
                     if (err) {
-                        console.log('error: ', err);
+                        throw err;
                     }
                     if (category) {
                         errors.push({
@@ -91,7 +91,7 @@ exports.fillCategoryTable = function (req, res) {
                 if (err) {
                     throw err;
                 }
-                Categories.count({}).exec(function (err, count) {
+                Categories.count().exec(function (err, count) {
                     var pages = [];
                     var maxPages = Math.ceil(count / perPage);
                     var page = parseInt(req.query.page) - 1 || 0;
@@ -101,9 +101,9 @@ exports.fillCategoryTable = function (req, res) {
                     }
                     //console.log('count', count);
                     //console.log('pages', pages);
-                    Categories.find({}).sort({date: -1}).limit(perPage).skip(perPage * page).exec(function (err, categories) {
+                    Categories.find().sort({date: -1}).limit(perPage).skip(perPage * page).exec(function (err, categories) {
                         if (err) {
-                            console.log('err:', err);
+                            throw err;
                         }
                         if (categories) {
                             return res.render('views/categories', {
@@ -123,7 +123,7 @@ exports.fillCategoryTable = function (req, res) {
     });
 };
 
-exports.editCategoryGET = function (req, res) {
+exports.getCategoryInfo = function (req, res) {
     CurrentUser.findOne({_id: req.cookies.userCookie}, function (err, cUser) {
         if (err) {
             throw err;
@@ -140,7 +140,7 @@ exports.editCategoryGET = function (req, res) {
                     Categories.findById(id, function (err, category) {
                         //console.log('user: ', user);
                         if (err) {
-                            console.log('err', err);
+                            throw err;
                         }
                         return res.render('views/createCategory', {
                             category: category,
@@ -158,7 +158,7 @@ exports.delete = function (req, res) {
     var id = req.query.id;
     var perPage = 3;
 
-    Categories.find({}).sort({date: -1}).limit(perPage).exec(function (err, categories) {
+    Categories.find().sort({date: -1}).limit(perPage).exec(function (err, categories) {
         if (err) {
             throw err;
         }
@@ -166,7 +166,7 @@ exports.delete = function (req, res) {
 
             Categories.findByIdAndRemove(id, function (err, category) {
                 if (err) {
-                    console.log('err: ', err)
+                    throw err;
                 }
                 if (category) {
                     return res.redirect('/dashboard/categories');

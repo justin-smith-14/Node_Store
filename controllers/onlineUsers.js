@@ -3,11 +3,11 @@
  */
 var functions = require('../js/functions');
 var mongoose = require('mongoose');
-var Users = mongoose.model('Users');
-var CurrentUser = mongoose.model('CurrentUser');
+var Users = mongoose.model('KNUsers');
+var CurrentUser = mongoose.model('KNCurrentUser');
 
 
-exports.editUserPOST = function (req, res) {
+exports.createOrUpdateUser = function (req, res) {
     var errors = [];
     var id = req.body.id;
 
@@ -77,7 +77,6 @@ exports.editUserPOST = function (req, res) {
                 }
                 Users.findOne(q, function (err, user) {
                     if (err) {
-                        console.log('error: ', err);
                         throw err;
                     }
                     if (user) {
@@ -123,7 +122,7 @@ exports.fillUserTable = function (req, res) {
                 if (err) {
                     throw err;
                 }
-                Users.count({}).exec(function (err, count) {
+                Users.count().exec(function (err, count) {
                     var pages = [];
                     var maxPages = Math.ceil(count / perPage);
                     var page = parseInt(req.query.page) - 1 || 0;
@@ -133,9 +132,9 @@ exports.fillUserTable = function (req, res) {
                     }
                     //console.log('count', count);
                     //console.log('pages', pages);
-                    Users.find({}).sort({date: -1}).limit(perPage).skip(perPage * page).exec(function (err, users) {
+                    Users.find().sort({date: -1}).limit(perPage).skip(perPage * page).exec(function (err, users) {
                         if (err) {
-                            console.log('err:', err);
+                            throw err;
                         }
                         if (users) {
                             return res.render('views/users', {
@@ -155,7 +154,7 @@ exports.fillUserTable = function (req, res) {
     });
 };
 
-exports.editUserGET = function (req, res) {
+exports.getUserInfo = function (req, res) {
     CurrentUser.findOne({_id: req.cookies.userCookie}, function (err, cUser) {
         if (err) {
             throw err;
@@ -172,7 +171,7 @@ exports.editUserGET = function (req, res) {
                     Users.findById(id, function (err, user) {
                         //console.log('user: ', user);
                         if (err) {
-                            console.log('err', err);
+                            throw err;
                         }
                         return res.render('views/createUser', {
                             userInfo: user,
@@ -200,13 +199,13 @@ exports.delete = function (req, res) {
                 if (err) {
                     throw err;
                 }
-                Users.find({}).sort({date: -1}).limit(perPage).exec(function (err, users) {
+                Users.find().sort({date: -1}).limit(perPage).exec(function (err, users) {
                     //console.log("users: ", users);
                     if (err) {
                         throw err;
                     }
                     if (users) {
-                        Users.count({}).exec(function (err, count) {
+                        Users.count().exec(function (err, count) {
                             var pages = [];
                             var maxPages = Math.ceil(count / perPage);
                             var page = parseInt(req.query.page) - 1 || 0;
@@ -230,7 +229,7 @@ exports.delete = function (req, res) {
                             } else {
                                 Users.findByIdAndRemove(id, function (err, user) {
                                     if (err) {
-                                        console.log('err: ', err)
+                                        throw err;
                                     }
                                     if (user) {
                                         return res.redirect('/dashboard/users');
