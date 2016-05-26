@@ -16,12 +16,12 @@
         <div id="firstErr" class="error">{{ msg }}</div>
         <br>
         Category: <br><select name="category" class="box form">
-                        <option>--select one--</option>
-                        {% for name in categories %}
-                        <option>{{ name }}</option>
-                        {% endfor %}
+                            <option>--select one--</option>
+                            {% for x in categories %}
+                            <option value="{{x.iD|safe}}">{{ x.name|safe }}</option>
+                            {% endfor %}
                      </select>
-        <div id="fErr" class="error">{{ msg }}</div>
+        <div id="categoryErr" class="error">{{ msg }}</div>
         <br>
         Slug: <br><input type="text" name="slug" class="box form" value={{product.slug}}>
         <div id="lastErr" class="error">{{ msg }}</div>
@@ -51,11 +51,11 @@
         <br>
         Category: <br><select name="category" class="box form">
                             <option>--select one--</option>
-                            {% for name in categories %}
-                            <option>{{ name }}</option>
+                            {% for x in categories %}
+                            <option value="{{x.iD|safe}}">{{ x.name|safe }}</option>
                             {% endfor %}
                     </select>
-        <div id="fErr" class="error">{{ msg }}</div>
+        <div id="categoryErr" class="error">{{ msg }}</div>
         <br>
         Slug: <br><input type="text" name="slug" class="box form" value={{body.slug}}>
         <div id="lastErr" class="error">{{ msg }}</div>

@@ -19,7 +19,7 @@
         </tr>
         {% for category in categories %}
         <tr>
-            <td>{{ category.name }}</td>
+            <td>{{ category.name|title }}</td>
             <td>{{ category.slug }}</td>
             <td id="action">
                 <button class="btn" id="move">

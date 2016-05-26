@@ -21,13 +21,16 @@ exports.createOrUpdateCategory = function (req, res) {
         errors.push(valSlug);
     }
 
-    var q = {
-        name: req.body.name.toLowerCase(),
+    var q1 = {
+        name: req.body.name.toLowerCase()
+    };
+    var q2 = {
         slug: req.body.slug.toLowerCase()
     };
 
     if (id) {
-        q._id = {$ne: id};
+        q1._id = {$ne: id};
+        q2._id = {$ne: id};
     }
 
     var query = {
@@ -44,34 +47,48 @@ exports.createOrUpdateCategory = function (req, res) {
                 if (err) {
                     throw err;
                 }
-                Categories.findOne(q, function (err, category) {
+                Categories.findOne(q1, function (err, name) {
                     if (err) {
                         throw err;
                     }
-                    if (category) {
+                    if (name) {
                         errors.push({
                             msg: "Category already exists",
                             field: "error"
                         });
                     }
-                    Categories.findOne({ _id: id}, function (err, categories) {
-                        if (errors.length != 0) {
-                            return res.render('views/createCategory', {
-                                errors: errors,
-                                body: req.body,
-                                user: userInfo,
-                                category: category,
-                                greeting: "Hello "
-                            });
-                        } else if (!categories) {
-                            categories = new Categories(query);
-                        } else {
-                            for (var i in query) {
-                                categories[i] = query[i];
-                            }
+                    Categories.findOne(q2, function (err, slug) {
+                        if (err) {
+                            throw err;
                         }
-                        categories.save();
-                        return res.redirect('/dashboard/categories');
+                        if (slug) {
+                            errors.push({
+                                msg: "Category already exists",
+                                field: "error"
+                            });
+                        }
+                        Categories.findOne({ _id: id}, function (err, categories) {
+                            if (errors.length != 0) {
+                                return res.render('views/createCategory', {
+                                    errors: errors,
+                                    body: req.body,
+                                    user: userInfo,
+                                    category: {
+                                        name: name,
+                                        slug: slug
+                                    },
+                                    greeting: "Hello "
+                                });
+                            } else if (!categories) {
+                                categories = new Categories(query);
+                            } else {
+                                for (var i in query) {
+                                    categories[i] = query[i];
+                                }
+                            }
+                            categories.save();
+                            return res.redirect('/dashboard/categories');
+                        });
                     });
                 });
             });

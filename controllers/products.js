@@ -16,8 +16,8 @@ exports.createOrUpdateProduct = function (req, res) {
     var valName = functions.validateFirst(req.body.name),
         valSlug = functions.validateLast(req.body.slug),
         valPrice = functions.validatePrice(req.body.price),
-        valQuantity = functions.validateQuantity(req.body.quantity);
-        //valCategory = functions.validateCategory(req.body.category);
+        valQuantity = functions.validateQuantity(req.body.quantity),
+        valCategory = functions.validateCategory(req.body.category);
 
     if (valName) {
         errors.push(valName);
@@ -31,9 +31,9 @@ exports.createOrUpdateProduct = function (req, res) {
     if (valQuantity) {
         errors.push(valQuantity);
     }
-    //if (valCategory) {
-    //    errors.push(valCategory);
-    //}
+    if (valCategory) {
+        errors.push(valCategory);
+    }
 
     var q = {
         name: req.body.name.toLowerCase(),
@@ -46,7 +46,7 @@ exports.createOrUpdateProduct = function (req, res) {
 
     var query = {
         name: req.body.name.toLowerCase(),
-        //category: req.body.category,
+        category: req.body.category,
         slug: req.body.slug.toLowerCase(),
         //imageURL: req.body.image.url,
         //imagePath: req.body.image.path,
@@ -78,7 +78,10 @@ exports.createOrUpdateProduct = function (req, res) {
                     Categories.find().exec(function (err, categories) {
                         if (err) {throw err;}
                         for (var i = 0; i < categories.length; i++) {
-                            catName.push(categories[i].name);
+                            catName.push({
+                                name: categories[i].name,
+                                iD: categories[i]._id
+                            });
                         }
                         //console.log('categories', categories);
                     });
@@ -106,6 +109,7 @@ exports.createOrUpdateProduct = function (req, res) {
                         products.save(function (err, products) {
                             if (err) {
                                 console.log('error: ', err);
+                                throw err;
                             }
                         return res.redirect('/dashboard/products');
                         });
@@ -180,7 +184,10 @@ exports.getProductInfo = function (req, res) {
                             throw err;
                         }
                         for (var i = 0; i < categories.length; i++) {
-                            catName.push(categories[i].name);
+                            catName.push({
+                                name: categories[i].name,
+                                iD: categories[i]._id
+                            });
                         }
                         Products.findById(id, function (err, product) {
                             if (err) {

@@ -202,7 +202,7 @@ exports.validateQuantity = function (quantity) {
 };
 
 exports.validateCategory = function (category) {
-    if (category.option == "--select one--") {
+    if (category == "--select one--") {
         return {
             msg: "Please select a category",
             field: "categoryErr"
