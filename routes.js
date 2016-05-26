@@ -5,6 +5,7 @@ var users = require('./controllers/users');
 var greeting = require('./controllers/greeting');
 var onlineUsers = require('./controllers/onlineUsers');
 var categories = require('./controllers/categories');
+var products = require('./controllers/products');
 
 module.exports = function (app) {
 
@@ -46,6 +47,14 @@ module.exports = function (app) {
         .get(categories.getCategoryInfo)
         .post(categories.createOrUpdateCategory);
 
+    //PRODUCTS
+    app.get('/dashboard/products', products.fillProductTable);
+
+    //CREATE PRODUCT
+    app.route('/dashboard/createProduct')
+        .get(products.getProductInfo)
+        .post(products.createOrUpdateProduct);
+
     //PROFILE
     app.get('/profile', greeting.profileInfo);
 
@@ -54,5 +63,6 @@ module.exports = function (app) {
     app.get('/deleteUser', users.deleteUser);
     app.get('/dashboard/userDelete', onlineUsers.delete);
     app.get('/dashboard/categoryDelete', categories.delete);
+    app.get('/dashboard/productDelete', products.delete);
 
 };

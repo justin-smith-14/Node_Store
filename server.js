@@ -9,6 +9,7 @@ var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 
 require('./models/categories');
+require('./models/products');
 
 //app.use(express.static('public'));
 app.use('/views', express.static('views'));

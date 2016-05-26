@@ -9,7 +9,7 @@
 {% block content %}
 <div id="main">
     <h2>Categories</h2>
-    <button id="btnC"><a href="./createCategory" class="btnLink">Create Category</a></button>
+    <button class="bbtn"><a href="./createCategory" class="btnLink">Create Category</a></button>
     <div id="error" class="error">{{ msg }}</div>
     <table>
         <tr>
@@ -45,7 +45,7 @@
 </footer>
 
 <script>
-    var category = '{{ category |json | safe }}';
+    var categories = '{{ categories |json | safe }}';
     var errors = '{{ errors |json | safe }}';
 
     //pages = JSON.parse(pages);

@@ -4,10 +4,10 @@
 var mongoose = require('mongoose');
 
 var KNProductSchema = new mongoose.Schema({
-    name:          { type: String },
+    name:          { type: String, lowercase: true },
     category:      { type: mongoose.Schema.Types.ObjectId,
-                      ref: 'Categories'},
-    slug:          { type: String },
+                      ref: 'KNCategories'},
+    slug:          { type: String, lowercase: true },
     imageURL:      { type: String },
     imagePath:     { type: String },
     description:   { type: String },

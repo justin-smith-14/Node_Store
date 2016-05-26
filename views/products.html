@@ -1,10 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% block links %}
+<link rel="stylesheet" href="../css/users.css">
+{% endblock %}
 
-</body>
-</html>
+{% block dashbar %}
+{% include "dashbar.html" %}
+{% endblock %}
+
+{% block content %}
+<div id="main">
+    <h2>Products</h2>
+    <button class="bbtn"><a href="./createProduct" class="btnLink">Create Product</a></button>
+    <div id="error" class="error">{{ msg }}</div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Slug</th>
+            <th>Image</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Discount Price</th>
+            <th>Attribute</th>
+            <th>Action</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.slug }}</td>
+            <td>{{ product.image }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>${{ product.price }}</td>
+            {% if product.discountPrice %}
+            <td>${{ product.discountPrice }}</td>
+            {% else %}
+            <td>{{ product.discountPrice }}</td>
+            {% endif %}
+            <td>{{ product.attribute }}</td>
+            <td id="action">
+                <button class="btn" id="move">
+                    <a href="./createProduct?id={{product._id | safe}}" class="btnLink">Edit</a>
+                </button>
+                <button class="btn">
+                    <a href="./productDelete?id={{product._id | safe}}" class="btnLink">Delete</a>
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% block pagination %}
+    {% include "pagination.html" %}
+    {% endblock %}
+    {{ paginationLinks("/dashboard/products", page, pages) }}
+</div>
+
+<footer>
+            <span>
+                &copy 2016 | "<em>Store Name</em>"
+            </span>
+</footer>
+
+<script>
+    var products = '{{ products |json | safe }}';
+    var errors = '{{ errors |json | safe }}';
+
+    //pages = JSON.parse(pages);
+    errors = JSON.parse(errors);
+
+
+    for (var i = 0; i < errors.length; i++) { // ----- loop through array of errors
+        console.log('looping through errors');
+        var elem = document.getElementById(errors[i].field);
+        if (!elem) {
+            console.log('err');
+
+        }
+        elem.innerHTML = errors[i].msg;
+    }
+
+</script>
+{% endblock %}

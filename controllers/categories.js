@@ -11,14 +11,14 @@ exports.createOrUpdateCategory = function (req, res) {
     var errors = [];
     var id = req.body.id;
 
-    var valFirst = functions.validateFirst(req.body.name),
-        valLast = functions.validateLast(req.body.slug);
+    var valName = functions.validateFirst(req.body.name),
+        valSlug = functions.validateLast(req.body.slug);
 
-    if (valFirst) {
-        errors.push(valFirst);
+    if (valName) {
+        errors.push(valName);
     }
-    if (valLast) {
-        errors.push(valLast);
+    if (valSlug) {
+        errors.push(valSlug);
     }
 
     var q = {

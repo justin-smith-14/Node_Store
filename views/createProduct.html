@@ -1,10 +1,109 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% block links %}
+<link rel="stylesheet" href="../css/signup.css">
+{% endblock %}
 
-</body>
-</html>
+{% block dashbar %}
+{% include "dashbar.html" %}
+{% endblock %}
+
+{% block content %}
+<div id="main">
+    <h2>Create Product</h2>
+    {% if body == "" %}
+    <form name="create" id="form" action="/dashboard/createProduct" method="post">
+        <input type="hidden" name="id" value={{product._id|json|safe}}>
+        Name: <br><input type="text" name="name" class="box form" value={{product.name|json|safe}}>
+        <div id="firstErr" class="error">{{ msg }}</div>
+        <br>
+        Category: <br><select name="category" class="box form">
+                        <option>--select one--</option>
+                        {% for name in categories %}
+                        <option>{{ name }}</option>
+                        {% endfor %}
+                     </select>
+        <div id="fErr" class="error">{{ msg }}</div>
+        <br>
+        Slug: <br><input type="text" name="slug" class="box form" value={{product.slug}}>
+        <div id="lastErr" class="error">{{ msg }}</div>
+        <br>
+        Image: <br>
+        <div id="emailErr" class="error">{{ msg }}</div>
+        <br>
+        Quantity: <br><input type="number" name="quantity" class="box form" value={{product.quantity}}>
+        <div id="quantityErr" class="error">{{ msg }}</div>
+        <br>
+        Price: <br><input type="text" name="price" class="box form" value={{product.price}}>
+        <div id="priceErr" class="error">{{ msg }}</div>
+        <br>
+        Discount Price: <br><input type="text" name="discountPrice" class="box" value={{product.discountPrice}}>
+        <div id="password-confirm" class="error">{{ msg }}</div>
+        <br>
+        Attribute: <br>
+        <div id="eErr" class="error">{{ msg }}</div>
+        <br><br>
+        <button type="submit" id="signbtn">Create</button><br>
+    </form>
+    {% else %}
+    <form name="create" id="form" action="/dashboard/createProduct" method="post">
+        <input type="hidden" name="id" value={{body.id|json|safe}}>
+        Name: <br><input type="text" name="name" class="box form" value={{body.name|json|safe}}>
+        <div id="firstErr" class="error">{{ msg }}</div>
+        <br>
+        Category: <br><select name="category" class="box form">
+                            <option>--select one--</option>
+                            {% for name in categories %}
+                            <option>{{ name }}</option>
+                            {% endfor %}
+                    </select>
+        <div id="fErr" class="error">{{ msg }}</div>
+        <br>
+        Slug: <br><input type="text" name="slug" class="box form" value={{body.slug}}>
+        <div id="lastErr" class="error">{{ msg }}</div>
+        <br>
+        Image: <br>
+        <div id="emailErr" class="error">{{ msg }}</div>
+        <br>
+        Quantity: <br><input type="number" name="quantity" class="box form" value={{body.quantity}}>
+        <div id="quantityErr" class="error">{{ msg }}</div>
+        <br>
+        Price: <br><input type="text" name="price" class="box form" value={{body.price}}>
+        <div id="priceErr" class="error">{{ msg }}</div>
+        <br>
+        Discount Price: <br><input type="text" name="discountPrice" class="box" value={{body.discountPrice}}>
+        <div id="password-confirm" class="error">{{ msg }}</div>
+        <br>
+        Attribute: <br>
+        <div id="eErr" class="error">{{ msg }}</div>
+        <br><br>
+        <button type="submit" id="signbtn">Create</button><br>
+    </form>
+    {% endif %}
+</div>
+
+<script>
+    var errors = '{{ errors |json | safe }}';
+    var body = '{{ body |json | safe }}';
+    var product = '{{ product |json | safe }}';
+    var categories = '{{ categories |json | safe }}';
+    //    console.log(JSON.parse(errors));
+    //    console.log("errors", errors);
+    console.log('categories', categories);
+    console.log("body", body);
+    errors = JSON.parse(errors);
+    for (var i = 0; i < errors.length; i++) { // ----- loop through array of errors
+        console.log('looping through errors');
+        var elem = document.getElementById(errors[i].field);
+        if (!elem) {
+            console.log('err');
+
+        }
+        elem.innerHTML = errors[i].msg;
+    }
+</script>
+
+<footer>
+    <span>
+        &copy 2016 | "<em>Store Name</em>"
+    </span>
+</footer>
+{% endblock %}

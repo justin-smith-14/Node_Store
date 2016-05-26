@@ -179,6 +179,37 @@ exports.validateRadio = function (gender) {
     }
 };
 
+exports.validatePrice = function (number) {
+    var intFormat = /^(\d*[.]?\d{1,2})$/;
+
+    if (intFormat.test(number) == false) {
+        return {
+            msg: "Invalid price format",
+            field: "priceErr"
+        };
+    }
+    return undefined;
+};
+
+exports.validateQuantity = function (quantity) {
+    if (quantity.length < 1) {
+        return {
+            msg: "Field Required",
+            field: "quantityErr"
+        };
+    }
+    return undefined;
+};
+
+exports.validateCategory = function (category) {
+    if (category.option == "--select one--") {
+        return {
+            msg: "Please select a category",
+            field: "categoryErr"
+        };
+    }
+    return undefined;
+};
 function logIn(email, password) {
     var storageObj = storage.getValue("users");
 
